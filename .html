@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>1º Aninho do Enrico!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle, #09111e 0%, #05070b 100%);
+            font-family: 'Fredoka', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: #2c3e50;
+            padding: 20px 10px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .fundo-ludico {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 10% 15%, #fff 1px, transparent 1px),
+                              radial-gradient(circle at 30% 65%, #fff 1.5px, transparent 1.5px),
+                              radial-gradient(circle at 80% 25%, #fff 1px, transparent 1px),
+                              radial-gradient(circle at 55% 80%, #ffeb3b 1.5px, transparent 1.5px),
+                              radial-gradient(circle at 88% 70%, #fff 1px, transparent 1px),
+                              radial-gradient(circle at 25% 40%, #fff 2px, transparent 2px);
+            background-size: 120px 120px;
+            z-index: 0;
+        }
+
+        .planeta-1, .planeta-2 {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.7;
+            z-index: 0;
+            animation: flutuarPlaneta 6s ease-in-out infinite alternate;
+        }
+        .planeta-1 { top: 15px; left: 15px; }
+        .planeta-2 { bottom: 15px; right: 15px; }
+
+        /* BOTÃO FLUTUANTE DE ÁUDIO */
+        .btn-audio {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            background: #ffb300;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .convite-container {
+            background: #ffffff;
+            border: 5px solid #ffb300; 
+            border-radius: 25px;
+            padding: 20px 15px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            z-index: 1;
+            position: relative;
+            align-self: center;
+        }
+
+        .foguetinho {
+            font-size: 55px;
+            margin-bottom: 5px;
+            display: inline-block;
+            animation: balanco 3s ease-in-out infinite;
+        }
+
+        h1 {
+            color: #0288d1;
+            font-size: 20px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .subtitulo {
+            font-size: 16px;
+            color: #ffb300;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .texto-principal {
+            font-size: 13.5px;
+            line-height: 1.4;
+            color: #546e7a;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            background: #f1f8ff;
+            border: 2px dashed #4fc3f7;
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .icon-balao {
+            font-size: 22px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-title {
+            font-size: 11px;
+            color: #0288d1;
+            font-weight: 700;
+        }
+
+        .info-value {
+            font-size: 13px;
+            color: #37474f;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .link-mapa {
+            color: #0288d1;
+            text-decoration: underline;
+            font-weight: 700;
+        }
+
+        .form-confirmacao {
+            margin-top: 20px;
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #ffb300;
+        }
+
+        .label-form {
+            display: block;
+            font-size: 14px;
+            color: #0288d1;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        .aviso-individual {
+            display: block;
+            font-size: 11px;
+            color: #e65100;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .input-nome {
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            border: 2px solid #4fc3f7;
+            border-radius: 25px;
+            margin-bottom: 12px;
+            font-family: 'Fredoka', sans-serif;
+            outline: none;
+            text-align: center;
+            background-color: white;
+            color: #37474f;
+        }
+
+        .input-nome:focus {
+            border-color: #0288d1;
+        }
+
+        .btn-enviar {
+            display: inline-block;
+            background: linear-gradient(135deg, #0288d1, #4fc3f7);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 0 #01579b;
+            transition: all 0.1s ease;
+            font-family: 'Fredoka', sans-serif;
+            width: 100%;
+        }
+
+        .btn-enviar:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 #01579b;
+        }
+
+        @keyframes balanco {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes flutuarPlaneta {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body onclick="iniciarMusicaComClique()">
+
+    <!-- ELEMENTO DE ÁUDIO DE FUNDO -->
+    <audio id="musicaFundo" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- BOTÃO PARA ATIVAR / PAUSAR O ÁUDIO -->
+    <button class="btn-audio" id="btnAudio" onclick="alternarAudio(event)">🎵</button>
+
+    <div class="fundo-ludico"></div>
+    <div class="planeta-1">🪐</div>
+    <div class="planeta-2">🌍</div>
+
+    <div class="convite-container">
+        <div class="foguetinho">🚀</div>
+        <h1>UM ANO DE PURA AVENTURA NO ESPAÇO!</h1>
+        <div class="subtitulo">O 1º Aninho do Enrico!</div>
+        
+        <p class="texto-principal">
+            Parece que foi ontem que o Enrico chegou para mudar o nosso mundo, e ele já está completando 1 aninho! Para comemorar essa data tão especial, estamos preparando uma festa do outro mundo, cheia de planetas, estrelas e muita diversão! 😊🌟
+        </p>
+
+        <div class="info-card">
+            <div class="icon-balao">📅</div>
+            <div class="info-content">
+                <div class="info-title">Dia da Festa</div>
+                <div class="info-value">21 de Outubro de 2026 (Quarta-feira)</div>
+                <div style="font-size: 9.5px; color: #ffb300; font-weight: bold;">(Não vale dizer que deu pane no sistema!)</div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="icon-balao">⏰</div>
+            <div class="info-content">
+                <div class="info-title">Horário do Foguete</div>
+                <div class="info-value">Das 19:30h às 23:30h</div>
+                <div style="font-size: 9.5px; color: #ffb300; font-weight: bold;">(Chegue no horário da decolagem!)</div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="icon-balao">🏰</div>
+            <div class="info-content">
+                <div class="info-title">Parquinho Espacial</div>
+                <div class="info-value">Espaço Sonho de Criança</div>
+                <div style="font-size: 9.5px; color: #ffb300; font-weight: bold;">(Gravidade zero na piscina de bolinhas!)</div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="icon-balao">📍</div>
+            <div class="info-content">
+                <div class="info-title">Onde fica</div>
+                <div class="info-value">
+                    <a class="link-mapa" href="https://maps.google.com/?q=Av.+Presidente+Prudente,+736+-+Paraíso,+Parauapebas+-+PA" target="_blank">Av. Presidente Prudente, 736 - Paraíso 🗺️</a>
+                </div>
+                <div style="font-size: 9.5px; color: #ffb300; font-weight: bold;">(Clique no endereço para abrir o GPS!)</div>
+            </div>
+        </div>
+
+        <div class="form-confirmacao">
+            <label class="label-form" for="nomeConvidado">Digite o nome do convidado:</label>
+            <span class="aviso-individual">⚠️ Por favor, confirme apenas UM nome por vez. Se for levar mais pessoas, faça uma confirmação individual para cada uma.</span>
+            <input type="text" id="nomeConvidado" class="input-nome" placeholder="Ex: Maria Silva" required>
+
+            <button id="btnConfirmar" class="btn-enviar" onclick="processarConfirmacao()">CONFIRMAR PRESENÇA! 🚀🎈</button>
+        </div>
+    </div>
+
+    <script>
+        const URL_API_GOOGLE = "https://script.google.com/macros/s/AKfycbxpwRNfGTK2_bCCVzrVjeLj3JeyzkvKoonnR08xMwEQioJNhZSSc-qGQNtGThRx0GvpLA/exec";
+        const musica = document.getElementById("musicaFundo");
+        const btnAudio = document.getElementById("btnAudio");
+        let musicaIniciada = false;
+
+        // Ativa a música no primeiro toque na tela para contornar o bloqueio dos celulares
+        function iniciarMusicaComClique() {
+            if (!musicaIniciada) {
+                musica.play().then(() => {
+                    musicaIniciada = true;
+                    btnAudio.textContent = "🔊";
+                }).catch(e => console.log("Aguardando interação para áudio."));
+            }
+        }
+
+        // Alterna entre tocar e pausar ao clicar no botão flutuante de nota musical
+        function alternarAudio(e) {
+            e.stopPropagation(); // Evita conflito com o clique da página
+            if (musica.paused) {
+                musica.play();
+                btnAudio.textContent = "🔊";
+                musicaIniciada = true;
+            } else {
+                musica.pause();
+                btnAudio.textContent = "🔇";
+            }
+        }
+
+        function processarConfirmacao() {
+            const inputNome = document.getElementById("nomeConvidado");
+            const nome = inputNome.value.trim();
+
+            if (nome === "") {
+                alert("Por favor, digite o nome completo antes de confirmar! 😊");
+                return;
+            }
+
+            const numeroWhats = "559492448897";
+            const textoWhats = encodeURIComponent("Olá! Sou " + nome + " e confirmo minha presença na festinha de 1 aninho do Enrico! 🚀🪐✨");
+            window.open("https://wa.me/" + numeroWhats + "?text=" + textoWhats, "_blank");
+
+            fetch(URL_API_GOOGLE, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ nome: nome })
+            }).catch(erro => console.error("Erro ao salvar dados na API:", erro));
+
+            inputNome.value = "";
+        }
+    </script>
+</body>
+</html>
